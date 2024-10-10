@@ -1,10 +1,15 @@
 import React from 'react';
 import { Container, Accordion, Typography, AccordionSummary, AccordionDetails } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Box from '@mui/material/Box';
 
 function FaqPage() {
     return (
         <Container>
+            <Box sx={{ paddingTop: '64px' }}> {/* Adjust this value if the height of the AppBar changes */}
+    {/* Page content goes here */}
+</Box>
+
             <Accordion>
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}

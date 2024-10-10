@@ -6,6 +6,7 @@ import Feed from '../components/Feed';
 import Divider from '@mui/material/Divider';
 import SearchIcon from '@mui/icons-material/Search';
 import Loader from '../components/Loader';
+import Box from '@mui/material/Box';
 
 function HomePage() {
 
@@ -36,12 +37,16 @@ function HomePage() {
 
     return (
         <Container>
+            <Box sx={{ paddingTop: '64px' }}> {/* Adjust this value if the height of the AppBar changes */}
+                {/* Page content goes here */}
+            </Box>
+
             <Grid container spacing={2} alignItems="center">
                 <Grid item xs={9} sm={10}>
                     <TextField
                         fullWidth
                         placeholder='Escriba su búsqueda...'
-                        
+
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         InputProps={{
@@ -63,7 +68,7 @@ function HomePage() {
                         Buscar
                     </Button>
                 </Grid>
-                
+
             </Grid>
             <br></br>
 

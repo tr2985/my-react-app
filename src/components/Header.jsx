@@ -2,11 +2,13 @@ import React from 'react';
 import { Link } from "react-router-dom";
 
 import { AppBar, Divider, IconButton, Toolbar, Button, Typography, Box } from "@mui/material";
+import Cart from '../components/Cart';
 
 function Header(props) {
     return (
         <div>
-            <AppBar position="static">
+            <AppBar position="fixed">
+                
                 <Toolbar>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         Ferreteria OnLine FULLSTACK
@@ -30,6 +32,9 @@ function Header(props) {
                                 Contacto
                             </Button>
                         </Link>
+                        
+                       <Cart></Cart>
+
                         <span style={{ marginTop: 15 }}>
                             
                         </span>
