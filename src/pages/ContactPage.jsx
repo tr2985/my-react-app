@@ -1,8 +1,8 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { Container, Typography, TextField, Button } from '@mui/material';
+import { Container, Typography, TextField, Button, Snackbar, Alert } from '@mui/material';
 import Box from '@mui/material/Box';
-
+import emailjs from 'emailjs-com';
 
 
 
@@ -16,8 +16,41 @@ const ContactPage = () => {
 
     });
 
+    const [open, setOpen] = useState(false);
+    const handlecliose = () => {
+        setOpen(false);
+    }
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        // primer parametro : service ID de emailjs
+        // segundo parametro: el template creado en la pagina de emailjs
+        //tercer parametro el fomrulario
+        // cuarto parametro es la public key de la pagina emailjs
+        emailjs.sendForm(
+            'service_wo55b5n',
+            'First_temp_01',
+            e.target,
+            'ICKPvkrL10QpJ2Qvd').then((result) => {
+
+                if (result.text === 'OK') {
+                    setOpen(true);
+                    setContact({
+
+                        name: '',
+                        lastname: '',
+                        email: '',
+                        message: ''
+
+                    });
+                }
+
+
+            }, (error) => {
+                console.log(error.text);
+
+            });
+
+        e.preventDefault()
 
     }
 
@@ -30,12 +63,16 @@ const ContactPage = () => {
     };
 
 
+    const handleClose = () => {
+        setOpen(false);
+    }
+
     return (
 
         <Container sx={{ marginTop: '20px' }}>
             <Box sx={{ paddingTop: '64px' }}> {/* Adjust this value if the height of the AppBar changes */}
-    {/* Page content goes here */}
-</Box>
+                {/* Page content goes here */}
+            </Box>
 
             <h4>Complete su información y envíe su consulta</h4>
             <form onSubmit={handleSubmit}>
@@ -76,7 +113,7 @@ const ContactPage = () => {
 
                 ></TextField>
                 <TextField
-                    
+
                     fullWidth
                     value={contact.message}
                     sx={{ mt: 2 }}
@@ -89,7 +126,15 @@ const ContactPage = () => {
 
 
                 ></TextField>
-                <Button variant='contained' type='submit' sx={{ mt: 2 }}>Submit</Button>
+                <Button variant='contained' type='submit' sx={{ mt: 2 }}>Enviar</Button>
+
+                <Snackbar anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }} open={open} autoHideDuration={6000} onClose={handleClose}>
+                    <Alert onClose={handleClose} variant="filled" severity='success' sx={{ width: '100%' }}>
+                        Su mensaje ha sido enviado con exito!
+
+                    </Alert>
+
+                </Snackbar>
 
             </form>
 

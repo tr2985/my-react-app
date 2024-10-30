@@ -9,7 +9,7 @@ function Feed(props) {
 
     return (
         <div style={style.feed}>
-            <Card sx={{ maxWidth: 345 }}>
+            <Card sx={{ maxWidth: 345, backgroundColor: '#FEFEFF' }}>
                 <CardHeader
                     action={
                         <IconButton>

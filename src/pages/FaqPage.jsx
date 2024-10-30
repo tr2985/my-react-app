@@ -7,8 +7,8 @@ function FaqPage() {
     return (
         <Container>
             <Box sx={{ paddingTop: '64px' }}> {/* Adjust this value if the height of the AppBar changes */}
-    {/* Page content goes here */}
-</Box>
+                {/* Page content goes here */}
+            </Box>
 
             <Accordion>
                 <AccordionSummary
