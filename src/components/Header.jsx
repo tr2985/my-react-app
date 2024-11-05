@@ -26,7 +26,7 @@ function Header(props) {
             <AppBar position="fixed">
                 <Toolbar>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        Ferreteria OnLine FULLSTACK
+                    CompraExpress OnLine 
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         <Link to='/' style={{ textDecoration: 'none' }}>

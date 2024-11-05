@@ -3,10 +3,8 @@ import { TextField, Box, Button } from "@mui/material";
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { createProduct, updateProduct } from '../api/products.api';
-
 
 function FormProduct(props) {
 
@@ -20,8 +18,14 @@ function FormProduct(props) {
     });
 
     useEffect(() => {
-        setProduct(props.product)
-
+        setProduct(props.product || {
+            name: '',
+            catalog: '',
+            image: '',
+            description: '',
+            price: 0,
+            stock: 0
+        });
     }, [props.product]);
 
     const handleChange = (e) => {
@@ -36,38 +40,30 @@ function FormProduct(props) {
         e.preventDefault();
 
         if (product._id !== undefined) {
-            updateProduct(product._id, product).then((response) =>{
-                if(response.data) {
-                    props.handleClose();
-                    props.fetchData();
-                }
-            }
-        
-        ).catch ((error) =>{
-
-            alert(error);
-            props.handleClose();
-        }
-    );
-
-
-
-
-        } else {
-
-            createProduct(product).then((response) => {
+            updateProduct(product._id, product).then((response) => {
                 if (response.data) {
                     props.handleClose();
-                    props.fetchData()
+                    props.fetchData();
                 }
             }).catch((error) => {
                 alert(error);
                 props.handleClose();
             });
-
+        } else {
+            createProduct(product).then((response) => {
+                if (response.data) {
+                    props.handleClose();
+                    props.fetchData();
+                }
+            }).catch((error) => {
+                alert(error);
+                props.handleClose();
+            });
         }
-
     };
+
+    // Determina el color de fondo basado en si es un producto nuevo o edición
+    const dialogBackgroundColor = product._id ? '#b3e5fc' : '#dcedc8'; // Celeste si es edición, verde claro si es nuevo
 
     return (
         <Box>
@@ -77,15 +73,17 @@ function FormProduct(props) {
             <Dialog
                 open={props.open}
                 onClose={props.handleClose}
+                PaperProps={{
+                    sx: { backgroundColor: dialogBackgroundColor } // Aplica el color de fondo a todo el diálogo
+                }}
             >
                 <form onSubmit={handleSubmit}>
-
-                    <DialogTitle id="alert-dialog-title">
-                        {"Crear nuevo Producto"}
+                    <DialogTitle>
+                        {product._id ? "Editar Producto" : "Crear Nuevo Producto"}
                     </DialogTitle>
                     <DialogContent>
-
-                        <TextField fullWidth
+                        <TextField
+                            fullWidth
                             label="Nombre"
                             margin="normal"
                             name="name"
@@ -93,7 +91,8 @@ function FormProduct(props) {
                             onChange={handleChange}
                             required
                         />
-                        <TextField fullWidth
+                        <TextField
+                            fullWidth
                             label="Descripción"
                             margin="normal"
                             name="description"
@@ -101,51 +100,52 @@ function FormProduct(props) {
                             onChange={handleChange}
                             required
                         />
-                        <TextField fullWidth
+                        <TextField
+                            fullWidth
                             label="Imagen URL"
                             margin="normal"
                             name="image"
                             value={product.image}
                             onChange={handleChange}
-
                         />
-                        <TextField fullWidth
+                        <TextField
+                            fullWidth
                             label="Precio"
                             margin="normal"
                             name="price"
                             value={product.price}
                             onChange={handleChange}
                             required
-                            type={'number'}
+                            type="number"
                         />
-                        <TextField fullWidth
+                        <TextField
+                            fullWidth
                             label="Stock"
                             margin="normal"
                             name="stock"
                             value={product.stock}
                             onChange={handleChange}
-                            type={'number'}
+                            type="number"
                         />
-
-                        <TextField fullWidth
-                            label="Catalogo"
+                        <TextField
+                            fullWidth
+                            label="Catálogo"
                             margin="normal"
                             name="catalog"
                             value={product.catalog}
                             onChange={handleChange}
-
                         />
-
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={props.handleClose}>Cancelar</Button>
-                        <Button type='submit' autoFocus>
+                        <Button onClick={props.handleClose} sx={{ backgroundColor: '#1976D2', color: '#FFFFFF' }}>Cancelar</Button>
+                        <Button type="submit" autoFocus sx={{ backgroundColor: '#1976D2', color: '#FFFFFF' }}>
                             Guardar
                         </Button>
                     </DialogActions>
                 </form>
             </Dialog>
         </Box>
-    )
+    );
 }
+
 export default FormProduct;

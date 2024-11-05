@@ -6,6 +6,7 @@ import FormProduct from '../../components/FormProduct';
 import DeleteIcon from '@mui/icons-material/Delete';
 import UpdateIcon from '@mui/icons-material/Edit';
 import { removeProduct } from '../../api/products.api';
+import ReportProblemIcon from '@mui/icons-material/ReportProblem';
 
 function HomePagePanel() {
     const [products, setProducts] = useState([]);
@@ -143,9 +144,14 @@ function HomePagePanel() {
                 onClose={handleCancelRemove} 
                 PaperProps={{ sx: { backgroundColor: '#FFFFFF' } }} // Fondo gris
             >
-                <DialogTitle>Confirmar Eliminación</DialogTitle>
+                
+                <DialogTitle><h3>Confirmar Eliminación </h3></DialogTitle>
+                
                 <DialogContent>
+                <ReportProblemIcon sx={{color: '#ED1C24', fontSize:'large' }}></ReportProblemIcon> 
+
                     ¿Estás seguro de que deseas eliminar este producto?
+                    Una vez borrado de la base de datos, no es posible recuperarlo. 
                 </DialogContent>
                 <DialogActions>
                     <Button 

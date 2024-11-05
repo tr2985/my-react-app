@@ -7,6 +7,9 @@ import Divider from '@mui/material/Divider';
 import SearchIcon from '@mui/icons-material/Search';
 import Loader from '../components/Loader';
 import Box from '@mui/material/Box';
+import EnviosBanner from '../components/Banners/EnviosBanner';
+import SaleOff from '../components/Banners/SaleOff';
+
 
 function HomePage() {
 
@@ -37,6 +40,8 @@ function HomePage() {
 
     return (
         <Container>
+            <EnviosBanner></EnviosBanner>
+            
             <Box sx={{ paddingTop: '64px' }}> {/* Adjust this value if the height of the AppBar changes */}
                 {/* Page content goes here */}
             </Box>
@@ -89,6 +94,8 @@ function HomePage() {
                     <p>Cargando productos...</p>
                 )}
             </Grid>
+            <SaleOff></SaleOff>
+          
 
             <Divider style={{ marginBottom: 100 }} />
         </Container>
